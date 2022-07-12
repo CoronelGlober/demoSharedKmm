@@ -2,8 +2,9 @@ package com.david.demokmm.components.definitions
 
 import com.arkivanov.essenty.parcelable.Parcelable
 import com.arkivanov.essenty.parcelable.Parcelize
+import com.david.demokmm.paging.PagingData
+import com.david.demokmm.paging.PagingOptions
 import com.david.demokmm.utils.FlowWrapper
-import com.kuuurt.paging.multiplatform.PagingData
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 
@@ -14,6 +15,8 @@ import kotlinx.coroutines.flow.MutableStateFlow
 interface RootComponent {
 
     val state: FlowWrapper<PagingData<Int>>
+
+    val pagingOptions: PagingOptions<Int>
 
     /**
      * Actions being performed by the children components,

@@ -25,7 +25,6 @@ kotlin {
                 implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0-native-mt")
                 api("com.arkivanov.decompose:decompose:0.7.0")
                 api("com.arkivanov.essenty:lifecycle:0.4.0")
-                api("io.github.kuuuurt:multiplatform-paging:0.4.7")
             }
         }
         val commonTest by getting {
@@ -33,7 +32,11 @@ kotlin {
                 implementation(kotlin("test"))
             }
         }
-        val androidMain by getting
+        val androidMain by getting {
+            dependencies {
+                api("androidx.paging:paging-common-ktx:3.1.1")
+            }
+        }
         val androidTest by getting
         val iosMain by creating {
             dependsOn(commonMain)
