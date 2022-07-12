@@ -12,6 +12,7 @@ import SwiftUI
 
 public class ObservablePagedValue<T: Any, A:NSArray>: ObservableObject {
     private let observableValue: FlowWrapper<A>
+    private let pagingOptions:PagingOptions
     
     @Published
     var values: [T] = []
@@ -20,20 +21,21 @@ public class ObservablePagedValue<T: Any, A:NSArray>: ObservableObject {
     
     private var watcher : Cancellable? = nil
     
-    init(_ value: FlowWrapper<A>) {
+    init(_ value: FlowWrapper<A>,_ pagingOptions:PagingOptions) {
         self.observableValue = value
+        self.pagingOptions = pagingOptions
         watcher = observableValue.watch { newValues in
             guard let list =  newValues?.compactMap({ $0 as? T }) else {
                 return
             }
             
             self.values = list
-          //  self.hasNextPage = self.repository.characterPager.hasNextPage
+            self.hasNextPage = self.pagingOptions.hasNextPage
         }
     }
     
     func fetchNextData() {
-      //  repository.characterPager.loadNext()
+        pagingOptions.loadNext()
     }
     
     public var shouldDisplayNextPage: Bool {

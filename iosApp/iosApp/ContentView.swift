@@ -24,7 +24,7 @@ struct TittleView: View {
     
     init(_ rootHost: RootComponent) {
         self.rootHost = rootHost
-        self.state = ObservablePagedValue<Int32, NSArray>(FlowWrapper(origin: rootHost.state))
+        self.state = ObservablePagedValue<Int32, NSArray>(FlowWrapper(origin: rootHost.state), rootHost.pagingOptions)
     }
     
     var body: some View {
@@ -48,7 +48,7 @@ struct TittleView: View {
             Spacer()
         }
         .onAppear(perform: {
-//            data.fetchNextData()
+            rootHost.pagingOptions.loadNext()
         })
     }
 }
