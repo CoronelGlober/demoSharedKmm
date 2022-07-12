@@ -44,8 +44,7 @@ dependencies {
     implementation("androidx.compose.runtime:runtime:1.1.1")
     implementation("androidx.compose.material:material:1.1.1")
     implementation("androidx.activity:activity-compose:1.4.0")
-
-
+    implementation( "androidx.paging:paging-compose:1.0.0-alpha15")
     implementation("com.arkivanov.decompose:extensions-compose-jetpack:0.6.0")
 
 

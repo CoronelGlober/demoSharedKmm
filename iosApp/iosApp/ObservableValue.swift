@@ -13,14 +13,13 @@ public class ObservableValue<T: AnyObject>: ObservableObject {
     private let observableValue: FlowWrapper<T>
     
     @Published
-    var value: T
+    var value: T? = nil
     
     
     private var watcher : Cancellable? = nil
     
     init(_ value: FlowWrapper<T>) {
         self.observableValue = value
-        self.value = observableValue.value!
         watcher = observableValue.watch { [weak self] (value) in
             self?.value = value!
         }

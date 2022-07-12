@@ -25,6 +25,7 @@ kotlin {
                 implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0-native-mt")
                 api("com.arkivanov.decompose:decompose:0.7.0")
                 api("com.arkivanov.essenty:lifecycle:0.4.0")
+                api("io.github.kuuuurt:multiplatform-paging:0.4.7")
             }
         }
         val commonTest by getting {
