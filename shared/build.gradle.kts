@@ -71,12 +71,12 @@ android {
     }
 }
 
-kotlin {
-    targets.withType<org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget> {
-        binaries.all {
-            // TODO: the current compose binary surprises LLVM, so disable checks for now.
-            freeCompilerArgs += "-Xdisable-phases=VerifyBitcode"
-            binaryOptions["memoryModel"] = "experimental"
-        }
-    }
-}
+//kotlin {
+//    targets.withType<org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget> {
+//        binaries.all {
+//            // TODO: the current compose binary surprises LLVM, so disable checks for now.
+//            freeCompilerArgs += "-Xdisable-phases=VerifyBitcode"
+//            binaryOptions["memoryModel"] = "experimental"
+//        }
+//    }
+//}

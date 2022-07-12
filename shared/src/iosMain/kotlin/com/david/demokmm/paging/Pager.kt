@@ -1,5 +1,7 @@
 package com.david.demokmm.paging
 
+import com.david.demokmm.paging.helpers.cachedIn
+import com.david.demokmm.utils.FlowWrapper
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
@@ -20,10 +22,10 @@ actual class Pager<Key : Any, Type : Any> actual constructor(
     private val config: PagingConfig,
     private val initialKey: Key,
     private val getItems: suspend (Key, Int) -> PagingResult<Key, Type>
-) :PagingOptions<Type>{
+) :PagedData<Type>{
 
     private val _pagingData = MutableStateFlow<PagingData<Type>?>(null)
-    override  val pagingData: Flow<PagingData<Type>> get() = _pagingData.filterNotNull()
+    override  val pagingData: FlowWrapper<PagingData<Type>> get() = FlowWrapper(_pagingData.filterNotNull().cachedIn(clientScope))
 
     private val _hasNextPage = MutableStateFlow(true)
     override val hasNextPage: Boolean

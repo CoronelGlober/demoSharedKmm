@@ -20,22 +20,25 @@ struct TittleView: View {
     private let rootHost: RootComponent
     
     @ObservedObject
-    var state: ObservablePagedValue<Int32, NSArray>
+    var pagedData: ObservablePagedValue<Int32, NSArray>
     
     init(_ rootHost: RootComponent) {
         self.rootHost = rootHost
-        self.state = ObservablePagedValue<Int32, NSArray>(FlowWrapper(origin: rootHost.state), rootHost.pagingOptions)
+        self.pagedData = ObservablePagedValue<Int32, NSArray>(rootHost.state)
     }
     
     var body: some View {
-        List {
-            ForEach(state.values, id:\.self) { character in
-                Text(String(character))
-            }
-            if state.shouldDisplayNextPage {
-                nextPageView
-            }
-        }        
+        if pagedData.loadingState == LoadingState.LoadingInitial {
+            loadingInitial
+        }else{
+            List {
+                ForEach(pagedData.values, id:\.self) { character in
+                    Text(String(character))
+                }
+                if pagedData.shouldDisplayNextPage {
+                    nextPageView
+                }
+            }     }
     }
     
     private var nextPageView: some View {
@@ -48,8 +51,19 @@ struct TittleView: View {
             Spacer()
         }
         .onAppear(perform: {
-            rootHost.pagingOptions.loadNext()
+            pagedData.fetchNextData()
         })
+    }
+    
+    private var loadingInitial: some View {
+        HStack {
+            Spacer()
+            VStack {
+                ProgressView()
+                Text("Loading Initial page...")
+            }
+            Spacer()
+        }.frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .center)
     }
 }
 

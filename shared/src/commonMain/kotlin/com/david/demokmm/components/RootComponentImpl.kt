@@ -21,7 +21,7 @@ class RootComponentImpl constructor(componentContext: ComponentContext) :
     private val pagingConfig = PagingConfig(pageSize = 20, enablePlaceholders = false)
 
 
-    override val pagingOptions: PagingOptions<Int> = Pager(clientScope = scope, config = pagingConfig, initialKey = 1,
+    override val state: PagedData<Int> = Pager(clientScope = scope, config = pagingConfig, initialKey = 1,
         getItems = { currentKey, size ->
 
             delay(5000)
@@ -36,9 +36,4 @@ class RootComponentImpl constructor(componentContext: ComponentContext) :
             )
         }
     )
-
-
-    override val state: FlowWrapper<PagingData<Int>> = FlowWrapper(pagingOptions.pagingData.cachedIn(scope))
-
-
 }

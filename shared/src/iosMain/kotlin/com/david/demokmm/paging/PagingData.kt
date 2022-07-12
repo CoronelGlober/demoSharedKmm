@@ -9,7 +9,7 @@ package com.david.demokmm.paging
 
 actual class PagingData<T : Any> internal constructor(items: List<T>) : List<T> by items
 
-internal fun <T: Any> List<T>.toPagingData(): PagingData<T> =
+internal fun <T : Any> List<T>.toPagingData(): PagingData<T> =
     PagingData(this)
 
 actual suspend fun <T : Any> PagingData<T>.filter(predicate: suspend (T) -> Boolean): PagingData<T> {

@@ -53,7 +53,7 @@ class MainActivity : ComponentActivity() {
 
     @Composable
     private fun TittleUi(rootHost: RootComponent) {
-        val numbers = rootHost.state.collectAsLazyPagingItems()
+        val numbers = rootHost.state.pagingData.collectAsLazyPagingItems()
         LazyColumn {
             items(numbers) { character ->
                 character?.let {

@@ -1,6 +1,8 @@
 package com.david.demokmm.paging
 
 import androidx.paging.PagingState
+import com.david.demokmm.paging.helpers.cachedIn
+import com.david.demokmm.utils.FlowWrapper
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
@@ -21,7 +23,7 @@ actual class Pager<Key : Any, Type : Any> actual constructor(
     config: PagingConfig,
     initialKey: Key,
     getItems: suspend (Key, Int) -> PagingResult<Key, Type>
-) : PagingOptions<Type> {
+) : PagedData<Type> {
 
     /**
      * Warning! not call it from android
@@ -30,7 +32,7 @@ actual class Pager<Key : Any, Type : Any> actual constructor(
 
     override fun loadNext() {}
 
-    override val pagingData: Flow<PagingData<Type>> = AndroidXPager(
+    override val pagingData: FlowWrapper<PagingData<Type>> = FlowWrapper(AndroidXPager(
         config = config,
         pagingSourceFactory = {
             PagingSource(
@@ -38,7 +40,7 @@ actual class Pager<Key : Any, Type : Any> actual constructor(
                 getItems
             )
         }
-    ).flow
+    ).flow.cachedIn(clientScope))
 
     class PagingSource<K : Any, V : Any>(
         private val initialKey: K,

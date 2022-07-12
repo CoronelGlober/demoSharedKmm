@@ -19,5 +19,5 @@ expect class Pager<Key : Any, Type : Any>(
     config: PagingConfig,
     initialKey: Key,
     getItems: suspend (Key, Int) -> PagingResult<Key, Type>
-) : PagingOptions<Type> {
+) : PagedData<Type> {
 }

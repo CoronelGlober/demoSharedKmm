@@ -1,9 +1,10 @@
 package com.david.demokmm.paging
 
+import com.david.demokmm.utils.FlowWrapper
 import kotlinx.coroutines.flow.Flow
 
-public interface PagingOptions<Type : Any> {
-    val pagingData: Flow<PagingData<Type>>
+public interface PagedData<Type : Any> {
+    val pagingData: FlowWrapper<PagingData<Type>>
     public val hasNextPage: Boolean
     public fun loadNext()
 }
