@@ -25,13 +25,6 @@ actual class Pager<Key : Any, Type : Any> actual constructor(
     getItems: suspend (Key, Int) -> PagingResult<Key, Type>
 ) : PagedData<Type> {
 
-    /**
-     * Warning! not call it from android
-     */
-    override val hasNextPage: Boolean = false
-
-    override fun loadNext() {}
-
     override val pagingData: FlowWrapper<PagingData<Type>> = FlowWrapper(AndroidXPager(
         config = config,
         pagingSourceFactory = {

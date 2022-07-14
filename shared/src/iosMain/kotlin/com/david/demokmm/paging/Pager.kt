@@ -22,7 +22,7 @@ actual class Pager<Key : Any, Type : Any> actual constructor(
     private val config: PagingConfig,
     private val initialKey: Key,
     private val getItems: suspend (Key, Int) -> PagingResult<Key, Type>
-) :PagedData<Type>{
+) : PagedData<Type> {
 
     private val _pagingData = MutableStateFlow<PagingData<Type>?>(null)
     override  val pagingData: FlowWrapper<PagingData<Type>> get() = FlowWrapper(_pagingData.filterNotNull().cachedIn(clientScope))

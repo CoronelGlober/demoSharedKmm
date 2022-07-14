@@ -11,7 +11,7 @@ import shared
 import SwiftUI
 
 public class ObservablePagedValue<T: Any, A:NSArray>: ObservableObject {
-    private let pagedData:PagedData
+    private let pagedData: PagedData
     private var hasNextPage: Bool = false
     private var watcher : Cancellable? = nil
     
